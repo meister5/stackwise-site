@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StackWise Reconstitution Calculator</title>
+<meta name="description" content="Free peptide reconstitution calculator: enter vial mg, bacteriostatic water, and dose to get insulin syringe units (U-100), concentration, and doses per vial instantly.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F4F0;
+    --card: #FFFFFF;
+    --text: #1A1D1C;
+    --text-muted: #5B615F;
+    --border: #E2E0D8;
+    --accent: #0F6E56;
+    --accent-contrast: #FFFFFF;
+    --warning-bg: #FBEAEA;
+    --warning-text: #8A2A2A;
+    --warning-border: #E3B4B4;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0A0F0E;
+      --card: #111C1A;
+      --text: #EDEFEE;
+      --text-muted: #9AA6A3;
+      --border: #223330;
+      --accent: #2EC99A;
+      --accent-contrast: #04140F;
+      --warning-bg: #2A1414;
+      --warning-text: #F2B8B8;
+      --warning-border: #4A2323;
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  body {
+    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    padding: 24px 16px 64px;
+  }
+
+  .wrap {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  header {
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 0 6px;
+  }
+
+  .subtitle {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin: 0;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  .field {
+    margin-bottom: 16px;
+  }
+
+  .field:last-child {
+    margin-bottom: 0;
+  }
+
+  label {
+    display: block;
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+  }
+
+  input[type="number"],
+  select {
+    width: 100%;
+    font-family: inherit;
+    font-size: 1rem;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  input[type="number"]:focus,
+  select:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+
+  .dose-row {
+    display: flex;
+    gap: 8px;
+  }
+
+  .dose-row input {
+    flex: 1;
+  }
+
+  .unit-toggle {
+    display: flex;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .unit-toggle button {
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 700;
+    border: none;
+    background: var(--bg);
+    color: var(--text-muted);
+    padding: 0 14px;
+    cursor: pointer;
+  }
+
+  .unit-toggle button[aria-pressed="true"] {
+    background: var(--accent);
+    color: var(--accent-contrast);
+  }
+
+  .results {
+    text-align: center;
+  }
+
+  .results-empty {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    padding: 12px 0;
+  }
+
+  .units-big {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.1;
+    margin: 4px 0 2px;
+  }
+
+  .units-label {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+  }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    text-align: left;
+  }
+
+  .stat {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 10px 12px;
+  }
+
+  .stat-value {
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+
+  .stat-label {
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  .warning {
+    margin-top: 14px;
+    background: var(--warning-bg);
+    color: var(--warning-text);
+    border: 1px solid var(--warning-border);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 0.9rem;
+    text-align: left;
+  }
+
+  .how-it-works h2,
+  .cta h2 {
+    font-size: 1.05rem;
+    margin: 0 0 8px;
+  }
+
+  .how-it-works p,
+  .cta p {
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    margin: 0 0 8px;
+  }
+
+  .formula {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 0.88rem;
+    color: var(--text);
+    margin: 0 0 8px;
+  }
+
+  .disclaimer {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  .cta-button {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--accent-contrast);
+    font-weight: 700;
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 12px;
+    margin-top: 8px;
+  }
+
+  footer {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    margin-top: 24px;
+  }
+
+  footer a {
+    color: var(--text-muted);
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>Reconstitution Calculator</h1>
+    <p class="subtitle">Figure out how many units to draw on a U-100 insulin syringe after reconstituting a peptide vial.</p>
+  </header>
+
+  <section class="card">
+    <div class="field">
+      <label for="vialMg">Peptide in vial (mg)</label>
+      <input type="number" id="vialMg" inputmode="decimal" placeholder="e.g. 5" min="0" step="any">
+    </div>
+
+    <div class="field">
+      <label for="waterMl">Bacteriostatic water added (ml)</label>
+      <input type="number" id="waterMl" inputmode="decimal" placeholder="e.g. 2" min="0" step="any">
+    </div>
+
+    <div class="field">
+      <label for="doseAmount">Desired dose</label>
+      <div class="dose-row">
+        <input type="number" id="doseAmount" inputmode="decimal" placeholder="e.g. 0.25" min="0" step="any">
+        <div class="unit-toggle" role="group" aria-label="Dose unit">
+          <button type="button" id="unitMg" aria-pressed="true">mg</button>
+          <button type="button" id="unitMcg" aria-pressed="false">mcg</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="syringeMl">Syringe size</label>
+      <select id="syringeMl">
+        <option value="0.3">0.3 ml (30 units)</option>
+        <option value="0.5" selected>0.5 ml (50 units)</option>
+        <option value="1">1 ml (100 units)</option>
+      </select>
+    </div>
+  </section>
+
+  <section class="card results" id="resultsCard" aria-live="polite">
+    <div id="resultsEmpty" class="results-empty">Enter a vial amount, water volume, and dose to see your draw.</div>
+    <div id="resultsFilled" hidden>
+      <div class="units-big"><span id="outUnits">0</span></div>
+      <div class="units-label">units on a U-100 syringe</div>
+      <div class="stat-grid">
+        <div class="stat">
+          <div class="stat-value" id="outDoseMl">0</div>
+          <div class="stat-label">ml per dose</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value" id="outConcentration">0</div>
+          <div class="stat-label">mg/ml concentration</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value" id="outDosesPerVial">0</div>
+          <div class="stat-label">doses per vial</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value" id="outFits">-</div>
+          <div class="stat-label">fits syringe</div>
+        </div>
+      </div>
+      <div class="warning" id="outWarning" hidden></div>
+    </div>
+  </section>
+
+  <section class="card how-it-works">
+    <h2>How it works</h2>
+    <p>Adding water to a vial dilutes the peptide into a concentration — how many milligrams are in each milliliter of liquid. Dividing your desired dose by that concentration tells you how much liquid to draw. Multiplying that volume by 100 gives insulin-syringe units, since a U-100 syringe holds 100 units per milliliter, rounded to the nearest half unit.</p>
+    <div class="formula">
+      concentration (mg/ml) = vial mg ÷ water ml<br>
+      dose ml = dose mg ÷ concentration<br>
+      units = dose ml × 100, rounded to nearest 0.5
+    </div>
+    <p class="disclaimer">This is arithmetic, not medical advice. Always confirm doses with your prescriber or pharmacist.</p>
+  </section>
+
+  <section class="card cta">
+    <h2>Track it automatically</h2>
+    <p>StackWise remembers your reconstitution math per item, reminds you when it's dose time, and keeps everything on your device.</p>
+    <!-- Placeholder link until App Store / Play Store listings exist. Replace with real store links at launch. -->
+    <a class="cta-button" href="https://meister5.github.io/stackwise-site/">Get StackWise</a>
+  </section>
+
+  <footer>
+    <a href="./">StackWise</a> &middot; <a href="./privacy.html">Privacy</a> &middot; <a href="./terms.html">Terms</a>
+  </footer>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  function calcReconstitution(input) {
+    var vialMg = input.vialMg, waterMl = input.waterMl, doseMg = input.doseMg, syringeMl = input.syringeMl;
+
+    if (
+      !isFinite(vialMg) || vialMg <= 0 ||
+      !isFinite(waterMl) || waterMl <= 0 ||
+      !isFinite(doseMg) || doseMg <= 0 ||
+      !isFinite(syringeMl) || syringeMl <= 0
+    ) {
+      return null;
+    }
+
+    var concentrationMgPerMl = vialMg / waterMl;
+    var doseMl = doseMg / concentrationMgPerMl;
+    // U-100: 100 units per ml, rounded to the nearest 0.5 unit.
+    var units = Math.round(doseMl * 100 * 2) / 2;
+    var dosesPerVial = Math.floor(vialMg / doseMg);
+    var fitsSyringe = doseMl <= syringeMl;
+
+    return {
+      concentrationMgPerMl: concentrationMgPerMl,
+      doseMl: doseMl,
+      units: units,
+      dosesPerVial: dosesPerVial,
+      fitsSyringe: fitsSyringe
+    };
+  }
+
+  function trimNum(n, decimals) {
+    var fixed = n.toFixed(decimals);
+    if (fixed.indexOf('.') !== -1) {
+      fixed = fixed.replace(/0+$/, '').replace(/\.$/, '');
+    }
+    return fixed;
+  }
+
+  var vialInput = document.getElementById('vialMg');
+  var waterInput = document.getElementById('waterMl');
+  var doseInput = document.getElementById('doseAmount');
+  var syringeSelect = document.getElementById('syringeMl');
+  var unitMgBtn = document.getElementById('unitMg');
+  var unitMcgBtn = document.getElementById('unitMcg');
+
+  var resultsEmpty = document.getElementById('resultsEmpty');
+  var resultsFilled = document.getElementById('resultsFilled');
+  var outUnits = document.getElementById('outUnits');
+  var outDoseMl = document.getElementById('outDoseMl');
+  var outConcentration = document.getElementById('outConcentration');
+  var outDosesPerVial = document.getElementById('outDosesPerVial');
+  var outFits = document.getElementById('outFits');
+  var outWarning = document.getElementById('outWarning');
+
+  var doseUnit = 'mg';
+
+  function setDoseUnit(unit) {
+    doseUnit = unit;
+    unitMgBtn.setAttribute('aria-pressed', String(unit === 'mg'));
+    unitMcgBtn.setAttribute('aria-pressed', String(unit === 'mcg'));
+    render();
+  }
+
+  unitMgBtn.addEventListener('click', function () { setDoseUnit('mg'); });
+  unitMcgBtn.addEventListener('click', function () { setDoseUnit('mcg'); });
+
+  function parseField(el) {
+    if (el.value.trim() === '') return NaN;
+    var n = parseFloat(el.value);
+    return isFinite(n) ? n : NaN;
+  }
+
+  function render() {
+    var vialMg = parseField(vialInput);
+    var waterMl = parseField(waterInput);
+    var doseRaw = parseField(doseInput);
+    var doseMg = isFinite(doseRaw) ? (doseUnit === 'mcg' ? doseRaw / 1000 : doseRaw) : NaN;
+    var syringeMl = parseFloat(syringeSelect.value);
+
+    var result = calcReconstitution({
+      vialMg: vialMg,
+      waterMl: waterMl,
+      doseMg: doseMg,
+      syringeMl: syringeMl
+    });
+
+    if (!result) {
+      resultsEmpty.hidden = false;
+      resultsFilled.hidden = true;
+      return;
+    }
+
+    resultsEmpty.hidden = true;
+    resultsFilled.hidden = false;
+
+    outUnits.textContent = trimNum(result.units, 1);
+    outDoseMl.textContent = trimNum(result.doseMl, 3) + ' ml';
+    outConcentration.textContent = trimNum(result.concentrationMgPerMl, 3) + ' mg/ml';
+    outDosesPerVial.textContent = String(result.dosesPerVial);
+    outFits.textContent = result.fitsSyringe ? 'Yes' : 'No';
+
+    if (!result.fitsSyringe) {
+      outWarning.hidden = false;
+      outWarning.textContent = 'This dose (' + trimNum(result.doseMl, 3) + ' ml) is larger than your selected syringe. Choose a larger syringe or split the dose.';
+    } else {
+      outWarning.hidden = true;
+      outWarning.textContent = '';
+    }
+  }
+
+  [vialInput, waterInput, doseInput].forEach(function (el) {
+    el.addEventListener('input', render);
+  });
+  syringeSelect.addEventListener('change', render);
+
+  render();
+})();
+</script>
+</body>
+</html>
