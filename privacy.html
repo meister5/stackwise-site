@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StackWise · Privacy Policy</title>
+<meta name="description" content="StackWise Privacy Policy: what data exists, where it goes, and what stays on your device only.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='12' fill='%230F6E56'/%3E%3Crect x='9' y='7' width='30' height='11' rx='5.5' fill='white'/%3E%3Crect x='9' y='19.5' width='30' height='11' rx='5.5' fill='white' opacity='0.72'/%3E%3Crect x='9' y='32' width='30' height='11' rx='5.5' fill='white' opacity='0.46'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<header class="site-header">
+  <a class="brand" href="index.html">
+    <span class="logo-mark" aria-hidden="true">
+      <svg width="30" height="30" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="9" y="7" width="30" height="11" rx="5.5" fill="currentColor"/>
+        <rect x="9" y="19.5" width="30" height="11" rx="5.5" fill="currentColor" opacity="0.72"/>
+        <rect x="9" y="32" width="30" height="11" rx="5.5" fill="currentColor" opacity="0.46"/>
+      </svg>
+    </span>
+    StackWise
+  </a>
+  <nav class="site-nav" aria-label="Primary">
+    <a href="calculator.html">Calculator</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
+  </nav>
+</header>
+
+<main>
+  <div class="policy-header">
+    <h1>Privacy Policy</h1>
+    <p class="effective-date">Effective date: September 9, 2026</p>
+  </div>
+
+  <div class="policy-body">
+    <p>StackWise ("the app", "we", "us") is a medication and supplement tracker built around one rule: your health information stays on your device. This page explains exactly what data exists, where it goes, and what it never does.</p>
+
+    <h2>The short version</h2>
+    <ul>
+      <li>What you take, your dosages, your schedule, and your history of marking doses taken or skipped — this all lives in a local database on your phone. It is never uploaded to our servers.</li>
+      <li>We don't require an account and we don't collect your email address or name.</li>
+      <li>The few things that do leave your device are limited to anonymous technical data needed to run subscriptions, keep the app stable, and understand feature usage in aggregate — never the content of what you take.</li>
+    </ul>
+
+    <h2>What stays on your device only</h2>
+    <p>All of your health data — the items you track, dosages, schedules, and your log of doses taken or skipped — is stored locally on your device using SQLite. This data is never transmitted to StackWise or any third party. It leaves your device only if you choose to export it yourself (see "Backups and exports" below).</p>
+
+    <h2>What we send to third-party services, and why</h2>
+    <p>StackWise uses a small number of external services, each limited to a narrow purpose:</p>
+    <p><strong>Supabase (anonymous authentication and subscription status).</strong> The app creates an anonymous session with Supabase — there's no sign-up, no email, no password. Supabase receives only an anonymous user identifier, your subscription status, and a purchase receipt token used to verify your subscription. It never receives the names of items you track, dosages, or schedules.</p>
+    <p><strong>RevenueCat (subscription management).</strong> RevenueCat processes in-app purchases and tells the app whether you have an active Pro subscription. It receives standard purchase/receipt data needed to validate your subscription — never your health data.</p>
+    <p><strong>PostHog (anonymous product analytics).</strong> PostHog receives an anonymous device identifier and behavioral events — for example, that an item was added, a dose was marked, or a screen was opened. These events never include item names, dosages, or any other health content.</p>
+    <p><strong>Sentry (crash reporting).</strong> If the app crashes or hits an error, Sentry receives technical crash data and the name of the screen where it happened, so we can fix bugs. It never receives your health data.</p>
+    <p><strong>OpenRouter (optional, only if you use the Stack Optimizer's AI suggestions).</strong> The Stack Optimizer can suggest a better time-of-day schedule for your items. Most of the time this runs entirely on your device. If you opt into the AI-assisted version, a privacy-scrubbed summary is sent through our server to OpenRouter — this summary contains only canonical ingredient names, general timing categories, how often you take something, the names/times of your reminder slots, and generic interaction summaries. It never includes the names you gave your items, your dosages, or anything that identifies you personally.</p>
+
+    <h2>Backups and exports</h2>
+    <p>You can export your data as a JSON file or a PDF at any time, and you can restore from a previously exported JSON backup. These exports are created and stored under your control — StackWise does not receive a copy, and nothing is uploaded automatically. Sharing an export (for example, emailing it to your doctor) is entirely your choice.</p>
+
+    <h2>Accounts and email</h2>
+    <p>StackWise does not require you to create an account and does not collect your email address, name, or other personal contact information as part of using the app.</p>
+
+    <h2>Notifications</h2>
+    <p>Reminder notifications are scheduled entirely on your device using your phone's local notification system. StackWise does not use push notification servers and does not receive any data related to your reminders.</p>
+
+    <h2>Data retention and deletion</h2>
+    <p>Because your health data lives only on your device, you control it directly — deleting an item, clearing your history, or uninstalling the app removes that data from your device. Anonymous analytics and crash data held by our third-party providers are retained according to their own standard retention practices and contain no health information to begin with.</p>
+
+    <h2>Children's privacy</h2>
+    <p>StackWise is not directed at children and is not intended for use by anyone under the age of 16.</p>
+
+    <h2>Changes to this policy</h2>
+    <p>If we make material changes to this policy, we'll update the effective date above and, where appropriate, note the change within the app.</p>
+
+    <h2>Contact us</h2>
+    <p>Questions about this policy? Email us at <a href="mailto:support@stackwise.app">support@stackwise.app</a>.</p>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-links">
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="https://github.com/meister5/stackwise-site">GitHub</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 StackWise</p>
+  </div>
+</footer>
+
+</body>
+</html>

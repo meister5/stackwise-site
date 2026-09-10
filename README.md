@@ -10,4 +10,4 @@ A private medication and supplement tracker for iOS and Android.
 
 Coming soon to the App Store and Google Play.
 
-This repository hosts the public site: [privacy policy](https://meister5.github.io/stackwise-site/privacy), [terms](https://meister5.github.io/stackwise-site/terms), and a free [reconstitution calculator](https://meister5.github.io/stackwise-site/calculator.html).
+This repository hosts the public site: [privacy policy](https://meister5.github.io/stackwise-site/privacy.html), [terms](https://meister5.github.io/stackwise-site/terms.html), and a free [reconstitution calculator](https://meister5.github.io/stackwise-site/calculator.html).

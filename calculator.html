@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>StackWise Reconstitution Calculator</title>
 <meta name="description" content="Free peptide reconstitution calculator: enter vial mg, bacteriostatic water, and dose to get insulin syringe units (U-100), concentration, and doses per vial instantly.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='12' fill='%230F6E56'/%3E%3Crect x='9' y='7' width='30' height='11' rx='5.5' fill='white'/%3E%3Crect x='9' y='19.5' width='30' height='11' rx='5.5' fill='white' opacity='0.72'/%3E%3Crect x='9' y='32' width='30' height='11' rx='5.5' fill='white' opacity='0.46'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
@@ -258,10 +259,68 @@
   footer a {
     color: var(--text-muted);
   }
+
+  .site-header-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 700;
+    font-size: 1.05rem;
+  }
+
+  .brand .logo-mark {
+    color: var(--accent);
+    display: inline-flex;
+    flex-shrink: 0;
+  }
+
+  .site-nav-bar {
+    display: flex;
+    gap: 16px;
+  }
+
+  .site-nav-bar a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 700;
+    font-size: 0.85rem;
+  }
+
+  .site-nav-bar a:hover {
+    color: var(--accent);
+  }
 </style>
 </head>
 <body>
 <div class="wrap">
+  <div class="site-header-bar">
+    <a class="brand" href="index.html">
+      <span class="logo-mark" aria-hidden="true">
+        <svg width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="9" y="7" width="30" height="11" rx="5.5" fill="currentColor"/>
+          <rect x="9" y="19.5" width="30" height="11" rx="5.5" fill="currentColor" opacity="0.72"/>
+          <rect x="9" y="32" width="30" height="11" rx="5.5" fill="currentColor" opacity="0.46"/>
+        </svg>
+      </span>
+      StackWise
+    </a>
+    <nav class="site-nav-bar" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </nav>
+  </div>
 
   <header>
     <h1>Reconstitution Calculator</h1>
@@ -341,12 +400,11 @@
   <section class="card cta">
     <h2>Track it automatically</h2>
     <p>StackWise remembers your reconstitution math per item, reminds you when it's dose time, and keeps everything on your device.</p>
-    <!-- Placeholder link until App Store / Play Store listings exist. Replace with real store links at launch. -->
-    <a class="cta-button" href="https://meister5.github.io/stackwise-site/">Get StackWise</a>
+    <a class="cta-button" href="index.html">Get StackWise</a>
   </section>
 
   <footer>
-    <a href="./">StackWise</a> &middot; <a href="./privacy.html">Privacy</a> &middot; <a href="./terms.html">Terms</a>
+    <a href="index.html">StackWise</a> &middot; <a href="privacy.html">Privacy</a> &middot; <a href="terms.html">Terms</a> &middot; <a href="https://github.com/meister5/stackwise-site">GitHub</a>
   </footer>
 </div>
 
